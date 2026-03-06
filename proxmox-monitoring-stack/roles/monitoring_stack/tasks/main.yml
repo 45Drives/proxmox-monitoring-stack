@@ -1,0 +1,16 @@
+- name: Ensure monitoring directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ monitoring_root }}"
+    - "{{ monitoring_root }}/prometheus"
+    - "{{ monitoring_root }}/prometheus/data"
+    - "{{ monitoring_root }}/prometheus/rules"
+    - "{{ monitoring_root }}/alertmanager"
+    - "{{ monitoring_root }}/alertmanager/data"
+    - "{{ monitoring_root }}/grafana"
+    - "{{ monitoring_root }}/grafana/data"
+    - "{{ monitoring_root }}/compose"
+    - "{{ monitoring_root }}/pve-exporter"

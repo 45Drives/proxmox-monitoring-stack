@@ -1,0 +1,5 @@
+- name: Deploy Proxmox monitoring stack
+  hosts: localhost
+  become: true
+  roles:
+    - monitoring_stack

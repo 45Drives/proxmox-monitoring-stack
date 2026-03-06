@@ -1,0 +1,4 @@
+monitoring_prometheus_data_owner: nobody
+monitoring_prometheus_data_group: nogroup
+monitoring_grafana_data_owner: "472"
+monitoring_grafana_data_group: "472"

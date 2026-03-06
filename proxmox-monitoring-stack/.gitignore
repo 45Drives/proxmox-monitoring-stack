@@ -1,0 +1,5 @@
+*.retry
+.ansible/
+.vscode/
+__pycache__/
+inventories/*/group_vars/vault.yml
