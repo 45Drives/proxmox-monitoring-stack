@@ -20,6 +20,8 @@ node_exporter_targets:
 
 ceph_targets:
   - 192.168.45.1:9283
+  - 192.168.45.2:9283
+  - 192.168.45.3:9283
 
 pve_user: "prometheus@pve"
 pve_token_name: "monitoring"
