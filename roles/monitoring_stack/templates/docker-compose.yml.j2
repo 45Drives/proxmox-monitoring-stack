@@ -6,9 +6,9 @@ services:
     ports:
       - "{{ prometheus_host_port }}:9090"
     volumes:
-      - {{ monitoring_root }}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - {{ monitoring_root }}/prometheus/rules:/etc/prometheus/rules:ro
-      - {{ monitoring_root }}/prometheus/data:/prometheus
+      - "{{ monitoring_root }}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+      - "{{ monitoring_root }}/prometheus/rules:/etc/prometheus/rules:ro"
+      - "{{ monitoring_root }}/prometheus/data:/prometheus"
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
@@ -21,8 +21,8 @@ services:
     ports:
       - "{{ alertmanager_host_port }}:9093"
     volumes:
-      - {{ monitoring_root }}/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
-      - {{ monitoring_root }}/alertmanager/data:/alertmanager
+      - "{{ monitoring_root }}/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro"
+      - "{{ monitoring_root }}/alertmanager/data:/alertmanager"
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
       - --storage.path=/alertmanager
@@ -34,7 +34,9 @@ services:
     ports:
       - "{{ grafana_host_port }}:3000"
     volumes:
-      - {{ monitoring_root }}/grafana/data:/var/lib/grafana
+      - "{{ monitoring_root }}/grafana/data:/var/lib/grafana"
+      - "{{ monitoring_root }}/grafana/provisioning:/etc/grafana/provisioning:ro"
+      - "{{ monitoring_root }}/grafana/dashboards:/var/lib/grafana/dashboards:ro"
     environment:
       - GF_SECURITY_ADMIN_USER={{ grafana_admin_user }}
       - GF_SECURITY_ADMIN_PASSWORD={{ grafana_admin_password }}
@@ -46,4 +48,4 @@ services:
     ports:
       - "{{ pve_exporter_host_port }}:9221"
     volumes:
-      - {{ monitoring_root }}/pve-exporter/pve.yml:/etc/prometheus/pve.yml:ro
+      - "{{ monitoring_root }}/pve-exporter/pve.yml:/etc/prometheus/pve.yml:ro"
