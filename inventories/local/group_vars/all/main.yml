@@ -23,6 +23,14 @@ ceph_targets:
   - 192.168.45.2:9283
   - 192.168.45.3:9283
 
+grafana_dashboards:
+  - dashboard_id: 1860
+    revision: 37
+    datasource: Prometheus
+  - dashboard_id: 9550
+    revision: 1
+    datasource: Prometheus
+
 pve_user: "prometheus@pve"
 pve_token_name: "monitoring"
 pve_verify_ssl: false
