@@ -26,7 +26,7 @@ groups:
           severity: critical
         annotations:
           summary: "Ceph OSD down"
-          description: "Ceph OSD {{ \"{{ $labels.ceph_daemon }}\" }} on {{ \"{{ $labels.instance }}\" }} is down."
+          description: "Ceph OSD {% raw %}{{ $labels.ceph_daemon }}{% endraw %} on {% raw %}{{ $labels.instance }}{% endraw %} is down."
 
       - alert: CephOSDOut
         expr: ceph_osd_in == 0
@@ -35,7 +35,7 @@ groups:
           severity: warning
         annotations:
           summary: "Ceph OSD out"
-          description: "Ceph OSD {{ \"{{ $labels.ceph_daemon }}\" }} on {{ \"{{ $labels.instance }}\" }} is marked out."
+          description: "Ceph OSD {% raw %}{{ $labels.ceph_daemon }}{% endraw %} on {% raw %}{{ $labels.instance }}{% endraw %} is marked out."
 
       - alert: CephDegradedPGs
         expr: ceph_pg_degraded > 0
@@ -98,7 +98,7 @@ groups:
           severity: warning
         annotations:
           summary: "Ceph pool near full"
-          description: "Ceph pool {{ \"{{ $labels.name }}\" }} is above 85% used."
+          description: "Ceph pool {% raw %}{{ $labels.name }}{% endraw %} is above 85% used."
 
       - alert: CephPoolCriticallyFull
         expr: ceph_pool_percent_used > 95
@@ -107,4 +107,4 @@ groups:
           severity: critical
         annotations:
           summary: "Ceph pool critically full"
-          description: "Ceph pool {{ \"{{ $labels.name }}\" }} is above 95% used."
+          description: "Ceph pool {% raw %}{{ $labels.name }}{% endraw %} is above 95% used."
