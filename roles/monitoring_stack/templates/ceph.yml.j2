@@ -1,65 +1,110 @@
 groups:
-- name: ceph-basic
-  rules:
-  - alert: CephHealthWarning
-    expr: ceph_health_status == 1
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Ceph health is WARNING"
-      description: "Ceph cluster health status is WARN."
+  - name: ceph-basic
+    rules:
+      - alert: CephHealthWarning
+        expr: ceph_health_status == 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph health is WARNING"
+          description: "Ceph cluster health status is WARN."
 
-  - alert: CephHealthError
-    expr: ceph_health_status == 2
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Ceph health is ERROR"
-      description: "Ceph cluster health status is ERR."
+      - alert: CephHealthError
+        expr: ceph_health_status == 2
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph health is ERROR"
+          description: "Ceph cluster health status is ERR."
 
-  - alert: CephOSDDown
-    expr: ceph_osd_up == 0
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Ceph OSD down"
-      description: "One or more Ceph OSDs are down."
+      - alert: CephOSDDown
+        expr: ceph_osd_up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph OSD down"
+          description: "Ceph OSD {{ \"{{ $labels.ceph_daemon }}\" }} on {{ \"{{ $labels.instance }}\" }} is down."
 
-  - alert: CephOSDOut
-    expr: ceph_osd_in == 0
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Ceph OSD out"
-      description: "One or more Ceph OSDs are marked out."
+      - alert: CephOSDOut
+        expr: ceph_osd_in == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph OSD out"
+          description: "Ceph OSD {{ \"{{ $labels.ceph_daemon }}\" }} on {{ \"{{ $labels.instance }}\" }} is marked out."
 
-  - alert: CephDegradedObjects
-    expr: ceph_pg_degraded > 0
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Ceph degraded PGs detected"
-      description: "Ceph has degraded placement groups."
+      - alert: CephDegradedPGs
+        expr: ceph_pg_degraded > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph degraded PGs detected"
+          description: "Ceph has degraded placement groups."
 
-  - alert: CephMisplacedObjects
-    expr: ceph_pg_misplaced > 0
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Ceph misplaced PGs detected"
-      description: "Ceph has misplaced placement groups."
+      - alert: CephObjectsMisplaced
+        expr: ceph_num_objects_misplaced > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph misplaced objects detected"
+          description: "Ceph has misplaced objects."
 
-  - alert: CephRecoveryActiveTooLong
-    expr: ceph_pg_recovering > 0
-    for: 30m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Ceph recovery ongoing for extended period"
-      description: "Ceph recovery has been active for more than 30 minutes."
+      - alert: CephObjectsUnfound
+        expr: ceph_num_objects_unfound > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph unfound objects detected"
+          description: "Ceph reports unfound objects."
+
+      - alert: CephPGsIncomplete
+        expr: ceph_pg_incomplete > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph incomplete PGs detected"
+          description: "Ceph has incomplete placement groups."
+
+      - alert: CephPGsInconsistent
+        expr: ceph_pg_inconsistent > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph inconsistent PGs detected"
+          description: "Ceph has inconsistent placement groups."
+
+      - alert: CephRecoveryActiveTooLong
+        expr: ceph_pg_recovering > 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph recovery ongoing for extended period"
+          description: "Ceph recovery has been active for more than 30 minutes."
+
+      - alert: CephNearFullPool
+        expr: ceph_pool_percent_used > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ceph pool near full"
+          description: "Ceph pool {{ \"{{ $labels.name }}\" }} is above 85% used."
+
+      - alert: CephPoolCriticallyFull
+        expr: ceph_pool_percent_used > 95
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ceph pool critically full"
+          description: "Ceph pool {{ \"{{ $labels.name }}\" }} is above 95% used."

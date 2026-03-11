@@ -1,65 +1,83 @@
 groups:
-- name: proxmox-basic
-  rules:
-  - alert: ProxmoxNodeExporterDown
-    expr: up{job="node"} == 0
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Node exporter down on {{ "{{ $labels.instance }}" }}"
-      description: "Prometheus cannot scrape node exporter on {{ "{{ $labels.instance }}" }}."
+  - name: proxmox-basic
+    rules:
+      - alert: ProxmoxNodeExporterDown
+        expr: up{job="node"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node exporter down on {{ \"{{ $labels.instance }}\" }}"
+          description: "Prometheus cannot scrape node exporter on {{ \"{{ $labels.instance }}\" }}."
 
-  - alert: ProxmoxAPIExporterDown
-    expr: up{job="proxmox"} == 0
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Proxmox exporter path down for {{ "{{ $labels.instance }}" }}"
-      description: "Prometheus cannot scrape Proxmox metrics for {{ "{{ $labels.instance }}" }} through pve-exporter."
+      - alert: ProxmoxAPIExporterDown
+        expr: up{job="proxmox"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Proxmox exporter path down for {{ \"{{ $labels.instance }}\" }}"
+          description: "Prometheus cannot scrape Proxmox metrics for {{ \"{{ $labels.instance }}\" }} through pve-exporter."
 
-  - alert: ProxmoxNodeNotUp
-    expr: pve_node_status == 0
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Proxmox node reported down"
-      description: "A Proxmox node is not reporting as up."
+      - alert: ProxmoxNodeNotReporting
+        expr: pve_up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Proxmox object not reporting up"
+          description: "A Proxmox node, VM, CT, or storage object is reporting down via pve-exporter."
 
-  - alert: ProxmoxHighCPU
-    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100) > 90
-    for: 10m
-    labels:
-      severity: warning
-    annotations:
-      summary: "High CPU usage on {{ "{{ $labels.instance }}" }}"
-      description: "CPU usage has been above 90% for 10 minutes."
+      - alert: ProxmoxHighCPU
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100) > 90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ \"{{ $labels.instance }}\" }}"
+          description: "CPU usage has been above 90% for 10 minutes."
 
-  - alert: ProxmoxHighMemory
-    expr: (1 - (node_memory_MemAvailable_bytes{job="node"} / node_memory_MemTotal_bytes{job="node"})) * 100 > 90
-    for: 10m
-    labels:
-      severity: warning
-    annotations:
-      summary: "High memory usage on {{ "{{ $labels.instance }}" }}"
-      description: "Memory usage has been above 90% for 10 minutes."
+      - alert: ProxmoxHighMemory
+        expr: (1 - (node_memory_MemAvailable_bytes{job="node"} / node_memory_MemTotal_bytes{job="node"})) * 100 > 90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ \"{{ $labels.instance }}\" }}"
+          description: "Memory usage has been above 90% for 10 minutes."
 
-  - alert: ProxmoxFilesystemLowSpace
-    expr: (node_filesystem_avail_bytes{job="node",fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{job="node",fstype!~"tmpfs|overlay"}) * 100 < 10
-    for: 10m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Low filesystem space on {{ "{{ $labels.instance }}" }}"
-      description: "A filesystem on {{ "{{ $labels.instance }}" }} has less than 10% free space."
+      - alert: ProxmoxFilesystemLowSpace
+        expr: (node_filesystem_avail_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"} / node_filesystem_size_bytes{job="node",fstype!~"tmpfs|overlay|squashfs"}) * 100 < 10
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low filesystem space on {{ \"{{ $labels.instance }}\" }}"
+          description: "Filesystem {{ \"{{ $labels.mountpoint }}\" }} on {{ \"{{ $labels.instance }}\" }} has less than 10% free space."
 
-  - alert: ProxmoxSystemLoadHigh
-    expr: node_load15{job="node"} > 8
-    for: 15m
-    labels:
-      severity: warning
-    annotations:
-      summary: "High 15-minute load on {{ "{{ $labels.instance }}" }}"
-      description: "System load has remained high for 15 minutes."
+      - alert: ProxmoxSystemLoadHigh
+        expr: node_load15{job="node"} > 8
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High 15-minute load on {{ \"{{ $labels.instance }}\" }}"
+          description: "System load has remained high for 15 minutes."
+
+      - alert: ProxmoxRebootRequired
+        expr: node_reboot_required{job="node"} == 1
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Reboot required on {{ \"{{ $labels.instance }}\" }}"
+          description: "The node reports that a reboot is required."
+
+      - alert: ProxmoxSystemdNotRunning
+        expr: node_systemd_system_running{job="node"} != 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Systemd not in running state on {{ \"{{ $labels.instance }}\" }}"
+          description: "node_exporter reports systemd is not in running state."

@@ -34,6 +34,13 @@
     dest: "{{ monitoring_root }}/prometheus/rules/proxmox.yml"
     mode: "0644"
 
+- name: Deploy hardware alert rules
+  ansible.builtin.template:
+    src: hardware.yml.j2
+    dest: "{{ monitoring_root }}/prometheus/rules/hardware.yml"
+    mode: "0644"
+  notify: Restart monitoring stack
+
 - name: Deploy Grafana datasource provisioning
   template:
     src: grafana-datasource.yml.j2

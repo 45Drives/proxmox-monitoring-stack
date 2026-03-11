@@ -1,0 +1,155 @@
+groups:
+  - name: hardware-basic
+    rules:
+      - alert: SmartctlExporterDown
+        expr: up{job="smartctl"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "smartctl exporter down on {{ \"{{ $labels.instance }}\" }}"
+          description: "Prometheus cannot scrape smartctl exporter on {{ \"{{ $labels.instance }}\" }}."
+
+      - alert: DiskSmartFailed
+        expr: smartctl_device_smart_status{job="smartctl"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk SMART failure on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.device }}\" }} reported SMART failure."
+
+      - alert: DiskSmartUnhealthy
+        expr: smartmon_device_smart_healthy{job="smartctl"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk SMART unhealthy on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.disk }}\" }} reports unhealthy SMART status."
+
+      - alert: DiskTemperatureHigh
+        expr: smartctl_device_temperature{job="smartctl"} > 50
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk temperature high on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.device }}\" }} temperature is {{ \"{{ $value }}\" }}°C."
+
+      - alert: DiskTemperatureCritical
+        expr: smartctl_device_temperature{job="smartctl"} > 60
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk temperature critical on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.device }}\" }} temperature is {{ \"{{ $value }}\" }}°C."
+
+      - alert: DiskReallocatedSectors
+        expr: smartmon_reallocated_sector_ct_raw_value{job="smartctl"} > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk has reallocated sectors on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.disk }}\" }} has reallocated sectors."
+
+      - alert: DiskPendingSectors
+        expr: smartmon_current_pending_sector_raw_value{job="smartctl"} > 0
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk has pending sectors on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.disk }}\" }} has pending sectors."
+
+      - alert: DiskOfflineUncorrectable
+        expr: smartmon_offline_uncorrectable_raw_value{job="smartctl"} > 0
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk has offline uncorrectable sectors on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.disk }}\" }} has offline uncorrectable sectors."
+
+      - alert: DiskUdmaCrcErrors
+        expr: smartmon_udma_crc_error_count_raw_value{job="smartctl"} > 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk UDMA CRC errors on {{ \"{{ $labels.instance }}\" }}"
+          description: "Disk {{ \"{{ $labels.disk }}\" }} has UDMA CRC errors. Check cable/backplane/link quality."
+
+      - alert: NodeIPMITemperatureHigh
+        expr: node_ipmi_temperature_celsius{job="node"} > 70
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "IPMI temperature high on {{ \"{{ $labels.instance }}\" }}"
+          description: "Sensor {{ \"{{ $labels.name }}\" }} is reading {{ \"{{ $value }}\" }}°C."
+
+      - alert: NodeIPMITemperatureCritical
+        expr: node_ipmi_temperature_celsius{job="node"} > 85
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "IPMI temperature critical on {{ \"{{ $labels.instance }}\" }}"
+          description: "Sensor {{ \"{{ $labels.name }}\" }} is reading {{ \"{{ $value }}\" }}°C."
+
+      - alert: NodeIPMISensorNotOk
+        expr: node_ipmi_status{job="node"} != 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "IPMI sensor status not OK on {{ \"{{ $labels.instance }}\" }}"
+          description: "Sensor {{ \"{{ $labels.name }}\" }} is reporting a non-OK state."
+
+      - alert: NodeFanZeroRPM
+        expr: node_ipmi_speed_rpm{job="node"} == 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Fan stopped on {{ \"{{ $labels.instance }}\" }}"
+          description: "Fan sensor {{ \"{{ $labels.name }}\" }} is reporting 0 RPM."
+
+      - alert: ECCUncorrectableErrors
+        expr: increase(node_edac_uncorrectable_errors_total{job="node"}[15m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Uncorrectable ECC errors on {{ \"{{ $labels.instance }}\" }}"
+          description: "The node has reported uncorrectable ECC memory errors."
+
+      - alert: ECCCorrectableErrorsIncreasing
+        expr: increase(node_edac_correctable_errors_total{job="node"}[1h]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Correctable ECC errors increasing on {{ \"{{ $labels.instance }}\" }}"
+          description: "The node has reported new correctable ECC memory errors in the last hour."
+
+      - alert: ZpoolNotOnline
+        expr: node_zpool_state{job="node"} != 7
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "ZFS pool not ONLINE on {{ \"{{ $labels.instance }}\" }}"
+          description: "ZFS pool {{ \"{{ $labels.zpool }}\" }} is not in ONLINE state."
+
+      - alert: ZfsArcMemoryPressure
+        expr: node_zfs_arc_memory_throttle_count{job="node"} > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "ZFS ARC memory throttling on {{ \"{{ $labels.instance }}\" }}"
+          description: "ZFS ARC is reporting memory pressure/throttling."
