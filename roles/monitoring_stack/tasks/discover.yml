@@ -1,0 +1,44 @@
+- name: Build proxmox API target list from inventory
+  ansible.builtin.set_fact:
+    proxmox_nodes: >-
+      {{
+        groups['proxmox']
+        | default([])
+        | map('extract', hostvars, 'ansible_host')
+        | map('regex_replace', '$', ':8006')
+        | list
+      }}
+
+- name: Build node exporter target list from inventory
+  ansible.builtin.set_fact:
+    node_exporter_targets: >-
+      {{
+        groups['proxmox']
+        | default([])
+        | map('extract', hostvars, 'ansible_host')
+        | map('regex_replace', '$', ':9100')
+        | list
+      }}
+
+- name: Build smartctl target list from inventory
+  ansible.builtin.set_fact:
+    smartctl_targets: >-
+      {{
+        groups['proxmox']
+        | default([])
+        | map('extract', hostvars, 'ansible_host')
+        | map('regex_replace', '$', ':9633')
+        | list
+      }}
+
+- name: Build ceph target list from inventory
+  ansible.builtin.set_fact:
+    ceph_targets: >-
+      {{
+        groups['proxmox']
+        | default([])
+        | map('extract', hostvars, 'ansible_host')
+        | map('regex_replace', '$', ':9283')
+        | list
+      }}
+  when: monitor_ceph | bool

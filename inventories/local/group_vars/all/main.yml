@@ -8,25 +8,14 @@ pve_exporter_host_port: 9221
 grafana_admin_user: admin
 grafana_admin_password: admin
 
-proxmox_nodes:
-  - 192.168.45.1
-  - 192.168.45.2
-  - 192.168.45.3
+pve_user: "prometheus@pve"
+pve_token_name: "monitoring"
+pve_verify_ssl: false
 
-node_exporter_targets:
-  - 192.168.45.1:9100
-  - 192.168.45.2:9100
-  - 192.168.45.3:9100
-
-ceph_targets:
-  - 192.168.45.1:9283
-  - 192.168.45.2:9283
-  - 192.168.45.3:9283
-
-smartctl_targets:
-  - 192.168.45.1:9633
-  - 192.168.45.2:9633
-  - 192.168.45.3:9633
+monitor_proxmox: true
+monitor_node_exporter: true
+monitor_smartctl: true
+monitor_ceph: true
 
 grafana_dashboards:
   - dashboard_id: 1860
@@ -35,7 +24,3 @@ grafana_dashboards:
   - dashboard_id: 9550
     revision: 1
     datasource: Prometheus
-
-pve_user: "prometheus@pve"
-pve_token_name: "monitoring"
-pve_verify_ssl: false

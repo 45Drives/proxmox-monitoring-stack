@@ -7,6 +7,9 @@
 - name: Run directory tasks
   ansible.builtin.import_tasks: directories.yml
 
+- name: Run discovery tasks
+  ansible.builtin.import_tasks: discover.yml
+
 - name: Run config tasks
   ansible.builtin.import_tasks: configs.yml
 

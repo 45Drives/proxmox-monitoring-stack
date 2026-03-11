@@ -1,0 +1,15 @@
+all:
+  children:
+    monitoring:
+      hosts:
+        localhost:
+          ansible_connection: local
+
+    proxmox:
+      hosts:
+        pve1:
+          ansible_host: 10.0.0.11
+        pve2:
+          ansible_host: 10.0.0.12
+        pve3:
+          ansible_host: 10.0.0.13
