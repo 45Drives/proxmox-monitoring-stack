@@ -35,7 +35,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -125,7 +125,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_health_status{job=\"$job\"}",
           "format": "time_series",
@@ -140,7 +140,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -205,7 +205,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_mon_quorum_status{job=\"$job\"})",
           "format": "time_series",
@@ -221,7 +221,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -287,7 +287,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "count(ceph_pool_objects{job=\"$job\"})",
           "format": "time_series",
@@ -303,7 +303,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -373,7 +373,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_cluster_total_bytes{job=\"$job\"}",
           "format": "time_series",
@@ -389,7 +389,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -459,7 +459,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_cluster_total_used_bytes{job=\"$job\"}",
           "format": "time_series",
@@ -475,7 +475,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -543,7 +543,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_cluster_total_used_bytes{job=\"$job\"}/ceph_cluster_total_bytes{job=\"$job\"}*100",
           "format": "time_series",
@@ -572,7 +572,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -633,7 +633,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_osd_in{job=\"$job\"})",
           "format": "time_series",
@@ -649,7 +649,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -714,7 +714,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "count(ceph_osd_up{job=\"$job\"}) - count(ceph_osd_in{job=\"$job\"})",
           "format": "time_series",
@@ -730,7 +730,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -791,7 +791,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_osd_up{job=\"$job\"})",
           "format": "time_series",
@@ -807,7 +807,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -872,7 +872,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "count(ceph_osd_up{job=\"$job\"} == 0) OR vector(0)",
           "format": "time_series",
@@ -888,7 +888,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -953,7 +953,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "avg(ceph_osd_apply_latency_ms{job=\"$job\"})",
           "format": "time_series",
@@ -969,7 +969,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1034,7 +1034,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "avg(ceph_osd_commit_latency_ms{job=\"$job\"})",
           "format": "time_series",
@@ -1063,7 +1063,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1151,7 +1151,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_osd_apply_latency_ms{job=\"$job\"}",
           "format": "time_series",
@@ -1160,7 +1160,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_osd_commit_latency_ms{job=\"$job\"}",
           "format": "time_series",
@@ -1173,7 +1173,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1261,7 +1261,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "(ceph_mds_reply_latency_sum{job=\"$job\"} / clamp_min(ceph_mds_reply_latency_count{job=\"$job\"}, 1)) or vector(0)",
           "format": "time_series",
@@ -1287,7 +1287,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1390,7 +1390,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_active{job=\"$job\"})",
           "format": "time_series",
@@ -1401,7 +1401,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_clean{job=\"$job\"})",
           "format": "time_series",
@@ -1412,7 +1412,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_peering{job=\"$job\"})",
           "format": "time_series",
@@ -1423,7 +1423,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_degraded{job=\"$job\"})",
           "format": "time_series",
@@ -1435,7 +1435,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_stale{job=\"$job\"})",
           "format": "time_series",
@@ -1447,7 +1447,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_unclean_pgs{job=\"$job\"})",
           "format": "time_series",
@@ -1459,7 +1459,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_undersized{job=\"$job\"})",
           "format": "time_series",
@@ -1471,7 +1471,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_incomplete{job=\"$job\"})",
           "format": "time_series",
@@ -1482,7 +1482,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_forced_backfill{job=\"$job\"})",
           "format": "time_series",
@@ -1493,7 +1493,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_inconsistent{job=\"$job\"})",
           "format": "time_series",
@@ -1504,7 +1504,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_forced_recovery{job=\"$job\"})",
           "format": "time_series",
@@ -1515,7 +1515,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_creating{job=\"$job\"})",
           "format": "time_series",
@@ -1526,7 +1526,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_wait_backfill{job=\"$job\"})",
           "format": "time_series",
@@ -1537,7 +1537,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_deep{job=\"$job\"})",
           "format": "time_series",
@@ -1548,7 +1548,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_scrubbing{job=\"$job\"})",
           "format": "time_series",
@@ -1559,7 +1559,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_recovering{job=\"$job\"})",
           "format": "time_series",
@@ -1570,7 +1570,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_repair{job=\"$job\"})",
           "format": "time_series",
@@ -1581,7 +1581,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_down{job=\"$job\"})",
           "format": "time_series",
@@ -1592,7 +1592,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_peered{job=\"$job\"})",
           "format": "time_series",
@@ -1603,7 +1603,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_backfill{job=\"$job\"})",
           "format": "time_series",
@@ -1614,7 +1614,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_remapped{job=\"$job\"})",
           "format": "time_series",
@@ -1625,7 +1625,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_backfill_toofull{job=\"$job\"})",
           "format": "time_series",
@@ -1640,7 +1640,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1772,7 +1772,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_num_objects_unfound{job=\"$job\"}",
           "format": "time_series",
@@ -1784,7 +1784,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_num_objects_degraded{job=\"$job\"}",
           "format": "time_series",
@@ -1795,7 +1795,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "ceph_num_objects_misplaced{job=\"$job\"}",
           "format": "time_series",
@@ -1810,7 +1810,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1912,7 +1912,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pool_objects{job=\"$job\"})",
           "format": "time_series",
@@ -1928,7 +1928,7 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2031,7 +2031,7 @@
       "targets": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_degraded{job=\"$job\"})",
           "format": "time_series",
@@ -2043,7 +2043,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_stale{job=\"$job\"})",
           "format": "time_series",
@@ -2055,7 +2055,7 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "expr": "sum(ceph_pg_undersized{job=\"$job\"})",
           "format": "time_series",
