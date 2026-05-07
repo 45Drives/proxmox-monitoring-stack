@@ -5,8 +5,5 @@ Ansible-based deployment for Prometheus, Alertmanager, Grafana, pve-exporter, no
 Install these in the LXC or VM(Ubuntu 22 was used in both)
 ```bash
 apt update
-apt install -y git python3 python3-pip pipx
-pipx ensurepath
-pipx install ansible
-pipx inject ansible ansible-lint
+apt install -y git ansible ansible-lint
 ```
