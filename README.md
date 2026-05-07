@@ -2,7 +2,7 @@
 
 Ansible-based deployment for Prometheus, Alertmanager, Grafana, pve-exporter, node exporter targets, and Ceph monitoring.
 
-Install these in the LXC
+Install these in the LXC or VM
 apt update
 apt install -y git python3 python3-pip pipx
 pipx ensurepath
